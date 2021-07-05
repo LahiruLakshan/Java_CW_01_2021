@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         for (int x = 0; x < 6; x++) serviceCenter[x] = "empty";
         while (true) {
-            System.out.println("---------------- Welcome to Vaccination ---------------");
+            System.out.println("------- Welcome to Vaccination -------");
             System.out.println("\t100 or VVB: View all Vaccination Booths");
             System.out.println("\t101 or VEB: View all Empty EmptyBooths");
             System.out.println("\t102 or APB: Add Patient to a Booth");
@@ -23,29 +23,29 @@ public class Main {
             System.out.println("\t108 or AVS: Add Vaccinations to the Stock");
             System.out.println("\t999 or EXT: Exit the Program");
 
-            System.out.print("Enter a number:");
+            System.out.print("Enter a number : ");
             Scanner in = new Scanner(System.in);
             String input = in.next();
 
             switch (input) {
                 case "VVB":
                 case "100":
-                    System.out.println("\n----------------------------- View all Vaccination Booths -----------------------");
+                    System.out.println("\n------- View all Vaccination Booths -------");
                     vaccinationBooths();
                     break;
                 case "101":
                 case "VEB":
-                    System.out.println("\n----------------------------- View all Empty EmptyBooths -----------------------");
+                    System.out.println("\n------- View all Empty EmptyBooths -------");
                     emptyBooths();
                     break;
                 case "102":
                 case "APB":
-                    System.out.println("\n----------------------------- Add Patient to a Booth -----------------------");
+                    System.out.println("\n------- Add Patient to a Booth -------");
                     addPatientBooth();
                     break;
                 case "103":
                 case "RPB":
-                    System.out.println("\n----------------------------- Remove Patient from a Booth -----------------------");
+                    System.out.println("\n------ Remove Patient from a Booth ------");
                     removePatientBooth();
                     break;
                 case "104":
@@ -62,12 +62,12 @@ public class Main {
                     break;
                 case "107":
                 case "VRV":
-                    System.out.println("\n----------------------------- View Remaining Vaccinations -----------------------");
+                    System.out.println("\n------ View Remaining Vaccinations ------");
                     viewRemainingVaccine();
                     break;
                 case "108":
                 case "AVS":
-                    System.out.println("\n----------------------------- Add Vaccinations to the Stock -----------------------");
+                    System.out.println("\n------- Add Vaccinations to the Stock ------");
                     addVaccine();
                     break;
                 case "109":
@@ -164,7 +164,7 @@ public class Main {
                         customerName = in.next();
                         serviceCenter[boothNum] = customerName;
                         vaccination = vaccination - 1;
-                        System.out.println(vaccination == 20 ? "********* There are only 20 vaccines left *********\n" : "");
+                        System.out.println(vaccination == 20 ? "******* There are only 20 vaccines left *******\n" : "");
                         for (int x = 0; x < 6; x++) {
                             System.out.println("\tBooth " + x + " occupied by " + serviceCenter[x]);
                         }
