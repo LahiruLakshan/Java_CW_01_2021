@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    public static int vaccination = 150;
+    public static int vaccination = 21;
     public static String customerName;
     public static int M;
     public static String[] serviceCenter = new String[6];
@@ -12,16 +12,16 @@ public class Main {
         for (int x = 0; x < 6; x++) serviceCenter[x] = "empty";
         while (true) {
             System.out.println("---------------- Welcome to Vaccination ---------------");
-            System.out.println("100 or VVB: View all Vaccination Booths");
-            System.out.println("101 or VEB:View all Empty EmptyBooths");
-            System.out.println("102 or APB:Add Patientto a Booth");
-            System.out.println("103 or RPB:Remove Patientfrom a Booth");
-            System.out.println("104 or VPS:View PatientsSorted in alphabetical order ");
-            System.out.println("105 or SPD:Store Program Data into file");
-            System.out.println("106 or LPD:Load ProgramDatafrom file");
-            System.out.println("107 or VRV:View Remaining Vaccinations");
-            System.out.println("108 or AVS:Add Vaccinationsto the Stock");
-            System.out.println("999 or EXT:Exit the Program");
+            System.out.println("\t100 or VVB: View all Vaccination Booths");
+            System.out.println("\t101 or VEB: View all Empty EmptyBooths");
+            System.out.println("\t102 or APB: Add Patient to a Booth");
+            System.out.println("\t103 or RPB: Remove Patient from a Booth");
+            System.out.println("\t104 or VPS: View PatientsSorted in alphabetical order ");
+            System.out.println("\t105 or SPD: Store Program Data into file");
+            System.out.println("\t106 or LPD: Load ProgramData from file");
+            System.out.println("\t107 or VRV: View Remaining Vaccinations");
+            System.out.println("\t108 or AVS: Add Vaccinations to the Stock");
+            System.out.println("\t999 or EXT: Exit the Program");
 
             System.out.print("Enter a number:");
             Scanner in = new Scanner(System.in);
@@ -30,19 +30,22 @@ public class Main {
             switch (input) {
                 case "VVB":
                 case "100":
-                    System.out.println("View all Vaccination Booths");
+                    System.out.println("\n----------------------------- View all Vaccination Booths -----------------------");
                     vaccinationBooths();
                     break;
                 case "101":
                 case "VEB":
+                    System.out.println("\n----------------------------- View all Empty EmptyBooths -----------------------");
                     emptyBooths();
                     break;
                 case "102":
                 case "APB":
+                    System.out.println("\n----------------------------- Add Patient to a Booth -----------------------");
                     addPatientBooth();
                     break;
                 case "103":
                 case "RPB":
+                    System.out.println("\n----------------------------- Remove Patient from a Booth -----------------------");
                     removePatientBooth();
                     break;
                 case "104":
@@ -59,10 +62,12 @@ public class Main {
                     break;
                 case "107":
                 case "VRV":
+                    System.out.println("\n----------------------------- View Remaining Vaccinations -----------------------");
                     viewRemainingVaccine();
                     break;
                 case "108":
                 case "AVS":
+                    System.out.println("\n----------------------------- Add Vaccinations to the Stock -----------------------");
                     addVaccine();
                     break;
                 case "109":
@@ -73,7 +78,7 @@ public class Main {
                     break;
             }
             System.out.println("");
-            System.out.println(Arrays.toString(serviceCenter));
+//            System.out.println(Arrays.toString(serviceCenter));
         }
     }
 
@@ -94,14 +99,15 @@ public class Main {
     public static void addVaccine() {
         boolean addVaccinesValidation;
 
-        do{
+        do {
             try {
                 Scanner in = new Scanner(System.in);
                 System.out.print("How many vaccines are added to the stock ? : ");
                 int addVaccines = in.nextInt();
-                if (addVaccines > 0){
-                    vaccination =  (vaccination + addVaccines);
-                }else {
+                if (addVaccines > 0) {
+                    vaccination = (vaccination + addVaccines);
+                    System.out.println("Now stock have " + vaccination + " vaccines");
+                } else {
                     System.out.println("Please enter plus Integer input!");
                 }
 
@@ -110,17 +116,17 @@ public class Main {
                 System.out.println("Please enter Integer input!");
                 addVaccinesValidation = true;
             }
-        }while (addVaccinesValidation);
+        } while (addVaccinesValidation);
     }
 
     public static void viewRemainingVaccine() {
-        System.out.println("Now stock have "+vaccination + " vaccines");
+        System.out.println("Now stock have " + vaccination + " vaccines");
     }
 
     public static void removePatientBooth() {
         int boothNum;
-        while (true){
-            System.out.println("Enter booth number for remove patient (0-5) or 6 to stop:");
+        while (true) {
+            System.out.print("Enter booth number for remove patient (0-5) or 6 to stop : ");
             Scanner in = new Scanner(System.in);
             try {
                 boothNum = in.nextInt();
@@ -139,7 +145,7 @@ public class Main {
                 } else {
                     System.out.println("Invalid Booth Number!");
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Please Enter Integer Input!");
             }
         }
@@ -147,19 +153,20 @@ public class Main {
 
     public static void addPatientBooth() {
         int boothNum;
-        while (true){
-            System.out.println("Enter booth number (0-5) or 6 to stop:");
+        while (true) {
+            System.out.print("Enter booth number (0-5) or 6 to stop : ");
             Scanner in = new Scanner(System.in);
             try {
                 boothNum = in.nextInt();
                 if (boothNum >= 0 && boothNum <= 5) {
                     if (serviceCenter[boothNum].equals("empty")) {
-                        System.out.println("Enter customer name for booth " + boothNum + " :");
+                        System.out.print("Enter customer name for booth " + boothNum + " :");
                         customerName = in.next();
                         serviceCenter[boothNum] = customerName;
                         vaccination = vaccination - 1;
+                        System.out.println(vaccination == 20 ? "********* There are only 20 vaccines left *********\n" : "");
                         for (int x = 0; x < 6; x++) {
-                            System.out.println("\tbooth " + x + " occupied by " + serviceCenter[x]);
+                            System.out.println("\tBooth " + x + " occupied by " + serviceCenter[x]);
                         }
                     } else {
                         System.out.println("This booth has a patient!");
@@ -169,40 +176,24 @@ public class Main {
                 } else {
                     System.out.println("Invalid Booth Number!");
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Please Enter Integer Input!");
             }
         }
-//        int boothNum = 0;
-
-//        while (boothNum < 6) {
-//            System.out.println("Enter booth number (0-5) or 6 to stop:");
-//            Scanner in = new Scanner(System.in);
-//            M = in.nextInt();
-//            if (M < 6) {
-//                System.out.println("Enter customer name for booth " + M + " :");
-//                customerName = in.next();
-//                serviceCenter[M] = customerName;
-//            } else {
-//                break;
-//            }
-//            for (int x = 0; x < 6; x++) {
-//                System.out.println("booth " + x + " occupied by " + serviceCenter[x]);
-//            }
-//            vaccination = vaccination - 1;
-//            boothNum++;
-//        }
     }
 
     public static void emptyBooths() {
-        for (int x = 0; x < 6; x++)
-            if (serviceCenter[x].equals("empty")) System.out.println("Booth " + x + " is empty");
+        for (int x = 0; x < 6; x++) {
+            if (serviceCenter[x].equals("empty")) {
+                System.out.println("\tBooth " + x + " is empty");
+            }
+        }
     }
 
     private static void vaccinationBooths() {
         int i;
         for (i = 0; i < 6; i++) {
-            System.out.println("Booth number " + i + " is " + serviceCenter[i]);
+            System.out.println("\tBooth number " + i + " is " + serviceCenter[i]);
         }
     }
 }
