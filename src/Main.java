@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -8,17 +9,19 @@ public class Main {
     public static int M;
     public static String[] serviceCenter = new String[6];
 
+    public static boolean exitDecision = true;
+
     public static void main(String[] args) throws IOException {
         for (int x = 0; x < 6; x++) serviceCenter[x] = "empty";
-        while (true) {
+        do{
             System.out.println("------- Welcome to Vaccination -------");
             System.out.println("\t100 or VVB: View all Vaccination Booths");
             System.out.println("\t101 or VEB: View all Empty EmptyBooths");
             System.out.println("\t102 or APB: Add Patient to a Booth");
             System.out.println("\t103 or RPB: Remove Patient from a Booth");
-            System.out.println("\t104 or VPS: View PatientsSorted in alphabetical order ");
+            System.out.println("\t104 or VPS: View Patients Sorted in alphabetical order ");
             System.out.println("\t105 or SPD: Store Program Data into file");
-            System.out.println("\t106 or LPD: Load ProgramData from file");
+            System.out.println("\t106 or LPD: Load Program Data from file");
             System.out.println("\t107 or VRV: View Remaining Vaccinations");
             System.out.println("\t108 or AVS: Add Vaccinations to the Stock");
             System.out.println("\t999 or EXT: Exit the Program");
@@ -50,7 +53,7 @@ public class Main {
                     break;
                 case "104":
                 case "VPS":
-                    alphabeticalOrder();
+                    alphabeticalOrder(patientArray);
                     break;
                 case "105":
                 case "SPD":
@@ -70,21 +73,38 @@ public class Main {
                     System.out.println("\n------- Add Vaccinations to the Stock ------");
                     addVaccine();
                     break;
-                case "109":
+                case "999":
                 case "EXT":
+                    exitDecision = false;
                     break;
                 default:
                     System.out.println("invalid input");
                     break;
             }
             System.out.println("");
-//            System.out.println(Arrays.toString(serviceCenter));
-        }
+            System.out.println(Arrays.toString(serviceCenter));
+            System.out.println(patientArray);
+        }while (exitDecision);
     }
 
+    public static ArrayList<String> patientArray= new ArrayList<String>();
+    public static void alphabeticalOrder(ArrayList<String> patientArray) {
+        ArrayList<String> words = patientArray;
 
-    public static void alphabeticalOrder() {
-
+        boolean isSwapped = false;
+        do {
+            isSwapped = false;
+            for(int i=0;i<words.size()-1;i++){
+                if(words.get(i).compareTo(words.get(i+1))>0){
+                    String temp = words.get(i+1);
+                    words.add(i+1,words.get(i));
+                    words.add(i,temp);
+//                    words[i] = temp;
+                    isSwapped = true;
+                }
+            }
+        }while((isSwapped));
+        System.out.println(words);
 
     }
 
@@ -160,9 +180,10 @@ public class Main {
                 boothNum = in.nextInt();
                 if (boothNum >= 0 && boothNum <= 5) {
                     if (serviceCenter[boothNum].equals("empty")) {
-                        System.out.print("Enter customer name for booth " + boothNum + " :");
+                        System.out.print("Enter customer name for booth " + boothNum + " : ");
                         customerName = in.next();
                         serviceCenter[boothNum] = customerName;
+                        patientArray.add(customerName);
                         vaccination = vaccination - 1;
                         System.out.println(vaccination == 20 ? "******* There are only 20 vaccines left *******\n" : "");
                         for (int x = 0; x < 6; x++) {
